@@ -2,12 +2,14 @@ package com.example.currency.repository
 
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.LiveData
 import com.example.currency.network.ApiService
 import com.example.currency.model.Currency
 
 class CurrencyRepository(private val apiService: ApiService) {
 
     private val currencyRatesCache = mutableMapOf<String, Currency>()
+    private val currencyUpdateDate = mutableMapOf<String, String>()
 
     suspend fun getCurrencyRates(): Map<String, Currency> {
         if (currencyRatesCache.isNotEmpty()) {
@@ -15,22 +17,18 @@ class CurrencyRepository(private val apiService: ApiService) {
         }
 
         val response = apiService.getCurrencyRates()
-        Log.e("Запрос:", response.toString())
+        Log.e("Данные запрошены:", response.toString())
+
+        currencyUpdateDate["Date"] = response.Date
+        currencyUpdateDate["PreviousDate"] = response.PreviousDate
 
         currencyRatesCache.putAll(response.Valute)
 
         return currencyRatesCache
     }
 
-    fun getCurrency(charCode: String): Currency? {
-        return currencyRatesCache[charCode]
+    fun getCurrencyUpdateDateMap(): Map<String, String> {
+        return currencyUpdateDate
     }
 
-    fun getCurrencyValue(charCode: String): Double {
-        return getCurrency(charCode)?.Value ?: 0.0
-    }
-
-    fun getCurrencyName(charCode: String): String {
-        return getCurrency(charCode)?.Name ?: ""
-    }
 }

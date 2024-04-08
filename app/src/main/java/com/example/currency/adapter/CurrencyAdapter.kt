@@ -1,5 +1,6 @@
 package com.example.currency.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ class CurrencyAdapter(private val valute: Map<String, Currency>) : RecyclerView.
         return ViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val itemsCurrencies = valute.values.toList()
         val currencyItem = itemsCurrencies[position]
