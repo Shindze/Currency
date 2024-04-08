@@ -23,7 +23,7 @@ class CurrencyAdapter(private val valute: Map<String, Currency>) : RecyclerView.
 
         holder.currencyTextView.text = currencyItem.Name
 
-        holder.valueTextView.text = currencyItem.Value.toString()
+        holder.valueTextView.text = currencyItem.Value.toString() + " ₽"
     }
 
     override fun getItemCount(): Int {

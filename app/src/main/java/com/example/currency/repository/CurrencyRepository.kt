@@ -1,5 +1,7 @@
 package com.example.currency.repository
 
+import android.util.Log
+import android.widget.Toast
 import com.example.currency.network.ApiService
 import com.example.currency.model.Currency
 
@@ -13,6 +15,8 @@ class CurrencyRepository(private val apiService: ApiService) {
         }
 
         val response = apiService.getCurrencyRates()
+        Log.e("Запрос:", response.toString())
+
         currencyRatesCache.putAll(response.Valute)
 
         return currencyRatesCache
